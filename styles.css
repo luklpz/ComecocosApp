@@ -193,3 +193,11 @@ header h2 {
 .ts-wrapper {
   width: 100%;
 }
+
+.marker-green {
+  filter: hue-rotate(90deg) saturate(3) brightness(1.1);
+}
+
+.marker-red {
+  filter: hue-rotate(0deg) saturate(6) brightness(1.2);
+}
