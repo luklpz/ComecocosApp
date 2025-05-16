@@ -1,0 +1,195 @@
+/* GENERAL RESET Y FUENTE */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #f3f4f6;
+  color: #333;
+}
+
+/* PANTALLA DE INICIO */
+body.inicio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+}
+
+.inicio-contenedor {
+  text-align: center;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 340px;
+  width: 90%;
+}
+
+.inicio-contenedor h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #4facfe;
+}
+
+#citySelect {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+#startBtn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background-color: #4facfe;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#startBtn:hover {
+  background-color: #00c6ff;
+}
+
+/* ENCABEZADO */
+header {
+  background-color: #4facfe;
+  color: white;
+  padding: 12px;
+  text-align: center;
+}
+
+header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* MAPA */
+#map {
+  height: calc(100vh - 60px);
+  width: 100%;
+}
+
+/* PREGUNTA COMO MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.25s ease-in;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 320px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#closeCompletion {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #4facfe;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* TEXTO PREGUNTA */
+#pointTitle {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#pointDescription {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+#questionText {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* OPCIONES */
+#options button {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#options button:hover {
+  background-color: #ddd;
+}
+
+#options button.correct {
+  background-color: #c8e6c9;
+  color: #256029;
+}
+
+#options button.incorrect {
+  background-color: #ffcdd2;
+  color: #b71c1c;
+}
+
+#feedback {
+  margin-top: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* UTILIDADES */
+.hidden {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* TOM-SELECT */
+.ts-wrapper {
+  width: 100%;
+}

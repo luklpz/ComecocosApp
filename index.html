@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleccionar Pueblo</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+</head>
+<body class="inicio">
+  <div class="inicio-contenedor">
+    <h1>Juego del Comecocos</h1>
+
+    <label for="citySelect" style="display:none;">Selecciona un pueblo</label>
+    <select id="citySelect" placeholder="Buscar pueblo..." required lang="es" autocomplete="off"></select>
+
+    <div style="margin: 10px 0;">
+      <label style="font-size: 14px;">
+        <input type="checkbox" id="geoToggle" checked>
+        Activar geolocalización para validar distancia a los puntos
+      </label>
+    </div>
+
+    <button id="startBtn">Comenzar</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+  <script>
+    const select = document.getElementById("citySelect");
+    const startBtn = document.getElementById("startBtn");
+
+    async function loadCities() {
+      try {
+        const res = await fetch("https://api.github.com/repos/luklpz/pueblos/contents/");
+        const files = await res.json();
+
+        files
+          .filter(f => f.name.endsWith(".json"))
+          .forEach(file => {
+            const name = file.name.replace(".json", "");
+            const option = document.createElement("option");
+            option.value = name;
+            option.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+            select.appendChild(option);
+          });
+
+        new TomSelect("#citySelect", {
+          placeholder: "Escribe para buscar pueblo...",
+          create: false,
+          maxOptions: 500
+        });
+
+      } catch (error) {
+        alert("⚠️ No se pudieron cargar los pueblos. Revisa tu conexión.");
+        console.error("Error cargando ciudades:", error);
+      }
+    }
+
+    startBtn.addEventListener("click", () => {
+      const city = select.value;
+      const useGeo = document.getElementById("geoToggle").checked;
+
+      if (!city) {
+        alert("Selecciona un pueblo para comenzar.");
+        return;
+      }
+
+      localStorage.setItem("ciudadSeleccionada", city);
+      localStorage.setItem("geolocalizacion", useGeo);
+      window.location.href = "juego.html";
+    });
+
+    loadCities();
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Rutas</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <header>
+    <h2 id="contador">0/0 puntos</h2>
+  </header>
+  <div id="map"></div>
+
+  <!-- Modal de Pregunta -->
+  <div id="questionModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="closeQuestion">❌</button>
+      <h2 id="pointTitle"></h2>
+      <p id="pointDescription"></p>
+      <div id="questionText"></div>
+      <div id="options"></div>
+      <div id="feedback"></div>
+    </div>
+  </div>
+
+  <!-- Modal Final -->
+  <div id="completionModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>🎉 ¡Has completado todos los puntos de la zona!</h2>
+      <button id="closeCompletion">Volver al inicio</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
