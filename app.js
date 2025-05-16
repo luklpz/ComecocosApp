@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
           radioUsuario.setLatLng(posicionUsuario);
         } else {
           radioUsuario = L.circle(posicionUsuario, {
-            radius: 50,
+            radius: 200,
             color: '#3388ff',
             weight: 1,
             fillColor: '#3388ff',
@@ -128,8 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
               L.latLng(p.lat, p.lng)
             );
 
-            if (distancia > 50) {
-              alert(`⛔ Debes estar a menos de 50 metros del punto. Estás a ${Math.round(distancia)} metros.`);
+            if (distancia > 200) {
+              alert(`⛔ Debes estar a menos de 200 metros del punto. Estás a ${Math.round(distancia)} metros.`);
               return;
             }
           }
