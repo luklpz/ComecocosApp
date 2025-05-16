@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let markerUsuario = null;
   let radioUsuario = null;
 
-  // Mostrar precisión GPS
   const gpsInfo = document.createElement("div");
   gpsInfo.style.position = "fixed";
   gpsInfo.style.top = "12px";
@@ -46,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
         accuracyMetros = pos.coords.accuracy;
         gpsInfo.textContent = `GPS: ±${Math.round(accuracyMetros)} m`;
 
-        // Crear o actualizar marcador de usuario
         if (markerUsuario) {
           markerUsuario.setLatLng(posicionUsuario);
         } else {
@@ -60,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }).addTo(map);
         }
 
-        // Crear o actualizar círculo de 50m
         if (radioUsuario) {
           radioUsuario.setLatLng(posicionUsuario);
         } else {
@@ -114,6 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       data.points.forEach((p, i) => {
         const m = L.marker([p.lat, p.lng]).addTo(map);
+        m._customIndex = i;
+        currentMarkers.push(m);
 
         m.on("click", () => {
           if (answered.has(i)) return;
@@ -135,14 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           }
 
-          mostrarPregunta(p, i);
+          mostrarPregunta(p, i, m);
         });
-
-        currentMarkers.push(m);
       });
     });
 
-  function mostrarPregunta(p, index) {
+  function mostrarPregunta(p, index, marker) {
     modal.classList.remove("hidden");
     title.textContent = p.title;
     desc.textContent = p.description;
@@ -161,16 +158,33 @@ document.addEventListener("DOMContentLoaded", () => {
         b.classList.add(ok ? 'correct' : 'incorrect');
         feedback.textContent = ok ? "✅ ¡Correcto!" : "❌ Intenta de nuevo";
 
-        if (ok && !answered.has(index)) {
-          answered.add(index);
-          correct++;
-          updateContador();
-          modal.classList.add("hidden");
-
-          if (correct === total) {
-            setTimeout(() => {
-              document.getElementById("completionModal").classList.remove("hidden");
-            }, 500);
+        if (!answered.has(index)) {
+          if (ok) {
+            marker.setIcon(new L.Icon({
+              iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+              shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+              iconSize: [25, 41],
+              iconAnchor: [12, 41],
+              popupAnchor: [1, -34],
+              shadowSize: [41, 41]
+            }));
+            answered.add(index);
+            correct++;
+            updateContador();
+            if (correct === total) {
+              setTimeout(() => {
+                document.getElementById("completionModal").classList.remove("hidden");
+              }, 500);
+            }
+          } else {
+            marker.setIcon(new L.Icon({
+              iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+              shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+              iconSize: [25, 41],
+              iconAnchor: [12, 41],
+              popupAnchor: [1, -34],
+              shadowSize: [41, 41]
+            }));
           }
         }
 
